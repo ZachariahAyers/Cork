@@ -1,0 +1,19 @@
+<Project>
+  <PropertyGroup>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AnalysisLevel>latest-recommended</AnalysisLevel>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Version>2.0.0</Version>
+    <Product>Cork</Product>
+    <Authors>Zachariah Ayers</Authors>
+    <Company>Ayers Electronics</Company>
+    <Copyright>Copyright Ayers Electronics Inc</Copyright>
+    <RepositoryUrl>https://github.com/ZachariahAyers/Cork</RepositoryUrl>
+  </PropertyGroup>
+</Project>

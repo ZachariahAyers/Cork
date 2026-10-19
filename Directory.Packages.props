@@ -1,0 +1,12 @@
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- AutoCAD 2027 managed API. The major version tracks the AutoCAD release. -->
+    <PackageVersion Include="AutoCAD.NET.Core" Version="26.0.0" />
+    <PackageVersion Include="AutoCAD.NET.Model" Version="26.0.0" />
+    <PackageVersion Include="xunit.v3.mtp-v2" Version="4.0.2" />
+  </ItemGroup>
+</Project>

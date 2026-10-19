@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Cork.Core/Cork.Core.csproj" />
+    <Project Path="src/Cork/Cork.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Cork.Core.Tests/Cork.Core.Tests.csproj" />
+  </Folder>
+</Solution>
