@@ -1,5 +1,3 @@
-using Cork.Core;
-
 namespace Cork.Core.Tests;
 
 public sealed class FloorAlignmentTests
@@ -18,7 +16,7 @@ public sealed class FloorAlignmentTests
     {
         var offset = FloorAlignment.ZOffset(0);
 
-        Assert.Equal(0, offset);
+        Assert.Equal(0.0, offset);
         Assert.False(double.IsNegative(offset));
     }
 }
