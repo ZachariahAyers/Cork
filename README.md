@@ -25,7 +25,7 @@ cd Cork
 dotnet build Cork.slnx --configuration Release
 ```
 
-Copy `Cork.dll` and `Cork.Core.dll` from `src/Cork/bin/Release/net10.0-windows/` into one folder. In AutoCAD, run `NETLOAD`, pick `Cork.dll`, then run a command.
+The build puts `Cork.dll` and `Cork.Core.dll` side by side in `src/Cork/bin/Release/net10.0-windows/`. In AutoCAD, run `NETLOAD`, pick `Cork.dll` from that folder, then run a command.
 
 ## Development
 
