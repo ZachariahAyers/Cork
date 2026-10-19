@@ -1,0 +1,34 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-dotnet@v6
+        with:
+          global-json-file: global.json
+
+      - name: Restore
+        run: dotnet restore Cork.slnx
+
+      - name: Check formatting
+        run: dotnet format Cork.slnx --verify-no-changes --no-restore
+
+      - name: Build
+        run: dotnet build Cork.slnx --configuration Release --no-restore
+
+      - name: Test
+        run: dotnet test --solution Cork.slnx --configuration Release --no-build
