@@ -48,3 +48,15 @@ there shows up on the first run of a command rather than hiding in logic.
 - `Directory.Packages.props` - every package version (central package management).
 - `global.json` - .NET 10 SDK and the Microsoft.Testing.Platform test runner.
 - `.editorconfig` - formatting and style, checked by `dotnet format --verify-no-changes` in CI.
+
+## Browser demo
+
+`src/Cork.Demo` is a thin .NET WebAssembly adapter and static browser UI. `Planning` validates a
+bounded JSON sample and calls the existing `MaterialLayerPlanner.Plan` and `FloorAlignment.ZOffset`.
+It serializes results through a generated JSON context; JavaScript only handles input and rendering.
+The test project compiles the same adapter source to exercise boundary validation without a browser.
+`Browser` exports those calls to JavaScript. The browser provides explicit validity flags in place of
+AutoCAD's symbol-name validation; matching names share validity, with any invalid flag taking precedence.
+
+No AutoCAD reference ships in the browser. The add-in and its transactions are unchanged.
+The demo's CI role can deploy only `opensource/cork/` in the existing website bucket.

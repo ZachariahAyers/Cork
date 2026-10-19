@@ -32,3 +32,39 @@ jobs:
 
       - name: Test
         run: dotnet test --solution Cork.slnx --configuration Release --no-build
+
+  demo:
+    name: Publish demo site
+    needs: [build]
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      id-token: write
+      contents: read
+    concurrency:
+      group: demo
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@v6
+        with:
+          global-json-file: global.json
+      - name: Check browser code and build
+        run: |
+          node --check src/Cork.Demo/wwwroot/main.js
+          dotnet publish src/Cork.Demo/Cork.Demo.csproj -c Release -o demo-dist
+          dotnet format src/Cork.Demo/Cork.Demo.csproj --verify-no-changes --no-restore
+      - uses: aws-actions/configure-aws-credentials@v6
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        with:
+          role-to-assume: arn:aws:iam::993011736775:role/gh-deploy-opensource-cork
+          aws-region: us-east-1
+      - name: Publish to ayers.repair/opensource/cork/
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        run: |
+          aws s3 sync demo-dist/wwwroot/ s3://ayers-repair-site-993011736775/opensource/cork/ \
+            --delete --cache-control "public, max-age=300" --only-show-errors
+          aws cloudfront create-invalidation --distribution-id E1CZIGG4O8R7UI \
+            --paths "/opensource/cork/*" --query Invalidation.Id --output text

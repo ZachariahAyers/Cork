@@ -45,3 +45,15 @@ GPL-3.0. See [LICENSE](LICENSE).
 ---
 
 Built by [Zachariah Ayers](https://ayers.repair).
+
+## Browser demo
+
+[Explore the material-layer planner](https://ayers.repair/opensource/cork/). Edit a small drawing
+sample and inspect the moves, new layers, and skipped solids produced by `Cork.Core` in WebAssembly.
+The Floor calculator uses the same Z-offset calculation as the AutoCAD command.
+
+The demo does not open or modify DWG files. AutoCAD supplies its layer-name validator in the add-in;
+the browser lets you mark sample names valid or invalid explicitly. No sample data is sent to a server.
+
+Build it with `dotnet publish src/Cork.Demo/Cork.Demo.csproj -c Release -o demo-dist`, then serve
+`demo-dist/wwwroot` with a static web server. CI deploys that folder after the existing build and tests.

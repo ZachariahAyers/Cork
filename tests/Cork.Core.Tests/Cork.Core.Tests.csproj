@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Using Include="Xunit" />
+    <Compile Include="../../src/Cork.Demo/Planning.cs" Link="Demo/Planning.cs" />
   </ItemGroup>
 
   <ItemGroup>

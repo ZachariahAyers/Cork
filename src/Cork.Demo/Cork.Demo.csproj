@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk.WebAssembly">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <WasmEnableHotReload>false</WasmEnableHotReload>
+    <WasmBuildNative>false</WasmBuildNative>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../Cork.Core/Cork.Core.csproj" />
+  </ItemGroup>
+</Project>

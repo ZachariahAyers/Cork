@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Try Cork's material layer planner in your browser.">
+  <link rel="canonical" href="https://ayers.repair/opensource/cork/">
+  <link rel="stylesheet" href="./styles.css">
+  <title>Cork material layer planner</title>
+</head>
+<body>
+  <header class="site-header">
+    <a class="wordmark" href="/opensource/cork/" aria-label="Cork home">
+      <span aria-hidden="true">CORK</span>
+      <small>Drawing preparation tools</small>
+    </a>
+    <nav aria-label="Project links">
+      <a href="https://github.com/ZachariahAyers/Cork">Source</a>
+      <a href="https://ayers.repair/opensource/">Open Source</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-heading" aria-labelledby="page-title">
+      <div>
+        <p class="eyebrow">Browser demo · Cork.Core</p>
+        <h1 id="page-title">Material layer planner</h1>
+        <p>Set up a few solids and the layers already in a drawing. Cork's real planner will show exactly what the command would change.</p>
+      </div>
+      <p class="runtime-status" id="runtime-status" role="status" aria-live="polite">Loading planner core…</p>
+    </section>
+
+    <form id="planner-form">
+      <div class="planning-grid">
+        <section class="desk-panel solids-panel" aria-labelledby="solids-heading">
+          <div class="panel-heading">
+            <div>
+              <p class="step-label">01 · Selection</p>
+              <h2 id="solids-heading">3D solids</h2>
+            </div>
+            <button class="quiet-button" id="add-solid" type="button">Add solid</button>
+          </div>
+          <p class="field-note" id="validity-note">“Valid layer name” stands in for AutoCAD's native name validator, which is only available inside AutoCAD. Marking a name invalid applies to every solid with that material.</p>
+          <div class="table-frame">
+            <table role="table" aria-label="3D solids">
+              <thead role="rowgroup">
+                <tr role="row">
+                  <th id="solid-index-column" role="columnheader" scope="col">Solid</th>
+                  <th id="solid-material-column" role="columnheader" scope="col">Material</th>
+                  <th id="solid-locked-column" role="columnheader" scope="col">Locked layer</th>
+                  <th id="solid-valid-column" role="columnheader" scope="col">Valid layer name</th>
+                  <th id="solid-action-column" role="columnheader" scope="col"><span class="visually-hidden">Remove</span></th>
+                </tr>
+              </thead>
+              <tbody id="solid-rows" role="rowgroup"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="desk-panel layers-panel" aria-labelledby="layers-heading">
+          <div class="panel-heading">
+            <div>
+              <p class="step-label">02 · Drawing</p>
+              <h2 id="layers-heading">Existing layers</h2>
+            </div>
+            <button class="quiet-button" id="add-layer" type="button">Add layer</button>
+          </div>
+          <p class="field-note">A matching layer can already carry the same material or a different one.</p>
+          <div class="table-frame">
+            <table role="table" aria-label="Existing layers">
+              <thead role="rowgroup">
+                <tr role="row">
+                  <th id="layer-name-column" role="columnheader" scope="col">Layer name</th>
+                  <th id="layer-material-column" role="columnheader" scope="col">Layer material</th>
+                  <th id="layer-action-column" role="columnheader" scope="col"><span class="visually-hidden">Remove</span></th>
+                </tr>
+              </thead>
+              <tbody id="layer-rows" role="rowgroup"></tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <div class="plan-bar">
+        <div>
+          <p class="step-label">03 · Preview</p>
+          <p>Planning reads these values only. It does not modify a drawing.</p>
+        </div>
+        <button class="primary-button" id="plan-button" type="submit" disabled>Plan material layers</button>
+      </div>
+    </form>
+
+    <section class="results-section" id="results" tabindex="-1" aria-labelledby="results-heading" hidden>
+      <div class="results-heading">
+        <div>
+          <p class="step-label">Plan result</p>
+          <h2 id="results-heading">Changes by solid</h2>
+        </div>
+        <p class="summary" id="plan-summary"></p>
+      </div>
+
+      <div class="result-layout">
+        <div class="table-frame result-table-frame">
+          <table role="table" aria-label="Planned changes by solid">
+            <thead role="rowgroup">
+              <tr role="row">
+                <th id="change-solid-column" role="columnheader" scope="col">Solid</th>
+                <th id="change-material-column" role="columnheader" scope="col">Material</th>
+                <th id="change-outcome-column" role="columnheader" scope="col">Outcome</th>
+                <th id="change-destination-column" role="columnheader" scope="col">Destination</th>
+                <th id="change-handling-column" role="columnheader" scope="col">Material handling</th>
+              </tr>
+            </thead>
+            <tbody id="change-rows" role="rowgroup"></tbody>
+          </table>
+        </div>
+
+        <aside class="new-layers" aria-labelledby="new-layers-heading">
+          <div class="aside-heading">
+            <h3 id="new-layers-heading">Layers to create</h3>
+            <span class="count-badge" id="new-layer-count">0</span>
+          </div>
+          <ol id="new-layer-list"></ol>
+        </aside>
+      </div>
+    </section>
+
+    <section class="floor-panel" aria-labelledby="floor-heading">
+      <div>
+        <p class="step-label">Floor check · Cork.Core</p>
+        <h2 id="floor-heading">Align a picked point to Z = 0</h2>
+        <p>Enter the point's Z coordinate in the current user coordinate system.</p>
+      </div>
+      <form class="floor-form" id="floor-form">
+        <label for="picked-z">Picked Z</label>
+        <div class="floor-controls">
+          <input id="picked-z" name="pickedZ" type="number" min="-1000000" max="1000000" step="any" value="12.5" required>
+          <button class="quiet-button" id="floor-button" type="submit" disabled>Find offset</button>
+        </div>
+      </form>
+      <output class="floor-result" id="floor-result" for="picked-z" aria-live="polite">Planner core is loading.</output>
+    </section>
+  </main>
+
+  <template id="solid-row-template">
+    <tr role="row">
+      <th role="rowheader" scope="row" headers="solid-index-column" data-label="Solid"><span class="row-number"></span></th>
+      <td role="cell" headers="solid-material-column" data-label="Material"><input data-field="materialName" type="text" maxlength="80" required></td>
+      <td role="cell" headers="solid-locked-column" data-label="Locked layer"><label class="check-control"><input data-field="isOnLockedLayer" type="checkbox"><span>Locked</span></label></td>
+      <td role="cell" headers="solid-valid-column" data-label="Valid layer name"><label class="check-control"><input data-field="nameIsValid" type="checkbox" checked aria-describedby="validity-note"><span>Valid</span></label></td>
+      <td role="cell" headers="solid-action-column" data-label="Row action"><button class="remove-button" data-action="remove" type="button">Remove <span class="visually-hidden">solid</span></button></td>
+    </tr>
+  </template>
+
+  <template id="layer-row-template">
+    <tr role="row">
+      <td role="cell" headers="layer-name-column" data-label="Layer name"><input data-field="name" type="text" maxlength="80" required></td>
+      <td role="cell" headers="layer-material-column" data-label="Layer material"><input data-field="materialName" type="text" maxlength="80" required></td>
+      <td role="cell" headers="layer-action-column" data-label="Row action"><button class="remove-button" data-action="remove" type="button">Remove <span class="visually-hidden">layer</span></button></td>
+    </tr>
+  </template>
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

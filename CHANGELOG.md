@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Add a working browser material-layer planner and Floor calculator using the actual Core assembly.
+- Publish the browser demo from CI after the existing checks, under its own website prefix.
+
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [2.0.0] - 2026-10-19
