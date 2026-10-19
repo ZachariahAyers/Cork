@@ -2,6 +2,9 @@ version: 2
 updates:
   - package-ecosystem: nuget
     directory: /
+    commit-message:
+      prefix: "build"
+      include: "scope"
     schedule:
       interval: monthly
     ignore:
@@ -11,5 +14,8 @@ updates:
 
   - package-ecosystem: github-actions
     directory: /
+    commit-message:
+      prefix: "build"
+      include: "scope"
     schedule:
       interval: monthly
