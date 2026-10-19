@@ -4,7 +4,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [2.0.0] - 2026-10-19
 
-Rebuilt for AutoCAD 2027. Same two commands; no new features.
+Built for AutoCAD 2027, with two commands: `Floor` and `MaterialsToLayers`.
 
 ### Changed
 
@@ -29,10 +29,4 @@ Rebuilt for AutoCAD 2027. Same two commands; no new features.
 - The empty `Cork` and `Cork_AnnoUtils` projects, wizard boilerplate, and an unused hard-coded
   material list.
 
-## [1] - 2018-04-17
-
-First version, for AutoCAD 2018 on .NET Framework 4.6: the `Floor` and `MaterialsToLayers` commands.
-Tag `v1` marks the last commit of this version.
-
-[2.0.0]: https://github.com/ZachariahAyers/Cork/compare/v1...v2.0.0
-[1]: https://github.com/ZachariahAyers/Cork/tree/v1
+[2.0.0]: https://github.com/ZachariahAyers/Cork/tree/v2.0.0
