@@ -2,6 +2,8 @@
 
 [![CI](https://github.com/ZachariahAyers/Cork/actions/workflows/ci.yml/badge.svg)](https://github.com/ZachariahAyers/Cork/actions/workflows/ci.yml)
 
+> Cork's tools now live in [RabCab](https://getrabcab.com/), free on the Autodesk App Store. This repository stays for reference and takes no new features.
+
 An AutoCAD add-in that keeps 3D models of fabricated parts tidy.
 
 ## Features
